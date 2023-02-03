@@ -35,10 +35,10 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.HistogramaV = new System.Windows.Forms.PictureBox();
             this.btnAplicarFiltroV = new System.Windows.Forms.Button();
             this.btnCargarVideo = new System.Windows.Forms.Button();
-            this.VideoSalida = new System.Windows.Forms.PictureBox();
             this.VideoEntrada = new System.Windows.Forms.PictureBox();
+            this.VideoEntrada1 = new AForge.Controls.VideoSourcePlayer();
+            this.VideoSalida = new AForge.Controls.VideoSourcePlayer();
             ((System.ComponentModel.ISupportInitialize)(this.HistogramaV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoSalida)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoEntrada)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,19 +129,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.btnCargarVideo.Text = "Cargar Video";
             this.btnCargarVideo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCargarVideo.UseVisualStyleBackColor = false;
-            // 
-            // VideoSalida
-            // 
-            this.VideoSalida.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.VideoSalida.BackgroundImage = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_video_70;
-            this.VideoSalida.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.VideoSalida.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.VideoSalida.Location = new System.Drawing.Point(420, 13);
-            this.VideoSalida.Name = "VideoSalida";
-            this.VideoSalida.Size = new System.Drawing.Size(236, 204);
-            this.VideoSalida.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.VideoSalida.TabIndex = 10;
-            this.VideoSalida.TabStop = false;
+            this.btnCargarVideo.Click += new System.EventHandler(this.btnCargarVideo_Click);
             // 
             // VideoEntrada
             // 
@@ -152,9 +140,31 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.VideoEntrada.Location = new System.Drawing.Point(45, 13);
             this.VideoEntrada.Name = "VideoEntrada";
             this.VideoEntrada.Size = new System.Drawing.Size(236, 204);
-            this.VideoEntrada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.VideoEntrada.TabIndex = 9;
             this.VideoEntrada.TabStop = false;
+            this.VideoEntrada.Visible = false;
+            // 
+            // VideoEntrada1
+            // 
+            this.VideoEntrada1.BackgroundImage = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_video_70;
+            this.VideoEntrada1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.VideoEntrada1.Location = new System.Drawing.Point(45, 13);
+            this.VideoEntrada1.Name = "VideoEntrada1";
+            this.VideoEntrada1.Size = new System.Drawing.Size(236, 204);
+            this.VideoEntrada1.TabIndex = 18;
+            this.VideoEntrada1.Text = "videoSourcePlayer1";
+            this.VideoEntrada1.VideoSource = null;
+            // 
+            // VideoSalida
+            // 
+            this.VideoSalida.BackgroundImage = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_video_70;
+            this.VideoSalida.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.VideoSalida.Location = new System.Drawing.Point(420, 13);
+            this.VideoSalida.Name = "VideoSalida";
+            this.VideoSalida.Size = new System.Drawing.Size(236, 204);
+            this.VideoSalida.TabIndex = 19;
+            this.VideoSalida.Text = "videoSourcePlayer1";
+            this.VideoSalida.VideoSource = null;
             // 
             // Videos
             // 
@@ -162,18 +172,18 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(679, 506);
+            this.Controls.Add(this.VideoSalida);
+            this.Controls.Add(this.VideoEntrada1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.HistogramaV);
             this.Controls.Add(this.btnAplicarFiltroV);
             this.Controls.Add(this.cmbFiltrosV);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCargarVideo);
-            this.Controls.Add(this.VideoSalida);
             this.Controls.Add(this.VideoEntrada);
             this.Name = "Videos";
             this.Text = "Videos";
             ((System.ComponentModel.ISupportInitialize)(this.HistogramaV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoSalida)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoEntrada)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -188,7 +198,8 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private System.Windows.Forms.ComboBox cmbFiltrosV;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCargarVideo;
-        private System.Windows.Forms.PictureBox VideoSalida;
         private System.Windows.Forms.PictureBox VideoEntrada;
+        private AForge.Controls.VideoSourcePlayer VideoEntrada1;
+        private AForge.Controls.VideoSourcePlayer VideoSalida;
     }
 }

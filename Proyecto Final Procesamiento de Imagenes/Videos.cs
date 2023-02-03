@@ -7,9 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AForge.Controls;
+using AForge.Video;
+using AForge.Video.DirectShow;
 
 namespace Proyecto_Final_Procesamiento_de_Imagenes
 {
+    
     public partial class Videos : Form
     {
         public Videos()
@@ -35,6 +39,18 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnCargarVideo_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Archivos de video (*.mp4, *.avi, *.mkv, ...)|*.mp4;*.avi;*.mkv;...";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
+            
         }
     }
 }

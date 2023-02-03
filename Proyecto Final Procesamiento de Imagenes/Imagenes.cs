@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.VisualBasic;
 
 namespace Proyecto_Final_Procesamiento_de_Imagenes
 {
@@ -58,8 +59,8 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             ImagenSalida.Image = imgOriginal;
 
             //Histograma
-            ChartImagen.Visible = true;
-            ChartImagen.Series.Clear();
+            //HistoGramImg.Visible = true;
+            //ChartImagen.Series.Clear();
         }
 
         private void TonoSepia() 
@@ -91,6 +92,38 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             ImagenSalida.Image = imgOriginal;
         }
 
+        private void EscalaDeGrises() 
+        {
+            ImagenAEditar = ImagenEntrada.Image;
+            Bitmap imgOriginal = new Bitmap(ImagenAEditar);
+            for (int x = 0; x < imgOriginal.Width; x++)
+            {
+                for (int y = 0; y < imgOriginal.Height; y++)
+                {
+                    Color pixelColor = imgOriginal.GetPixel(x, y);
+                    int grayScale = (int)((pixelColor.R * 0.3) + (pixelColor.G * 0.59) + (pixelColor.B * 0.11));
+                    Color newColor = Color.FromArgb(grayScale, grayScale, grayScale);
+                    imgOriginal.SetPixel(x, y, newColor);
+                }
+            }
+            ImagenAEditar = null;
+            ImagenSalida.Image = null;
+            ImagenSalida.Image = imgOriginal;
+        }
+
+        private void Pixelizado() 
+        {
+            ImagenAEditar = ImagenEntrada.Image;
+            Bitmap sourceBitmap = new Bitmap(ImagenAEditar);
+
+            int blockSize = 10;
+
+
+            ImagenAEditar = null;
+            ImagenSalida.Image = null;
+            ImagenSalida.Image = sourceBitmap;
+
+        }
 
         private void btnAplicarFiltro_Click(object sender, EventArgs e)
         {
@@ -105,6 +138,15 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                         break;
                     case 1: //Tono Sepia
                         TonoSepia();
+                        break;
+                    case 2: //Escala de Grises
+                        EscalaDeGrises();
+                        break;
+                    case 3: //Pixelizado
+                        Pixelizado();
+                        break;
+                    case 4: //Gaussiano
+                       // Textura();
                         break;
                     default:
                         MessageBox.Show("Por favor seleccione un filtro.");

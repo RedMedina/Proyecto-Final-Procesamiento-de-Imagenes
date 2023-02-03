@@ -29,11 +29,6 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbFiltros = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,11 +38,10 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.btnCargarImagen = new System.Windows.Forms.Button();
             this.ImagenSalida = new System.Windows.Forms.PictureBox();
             this.ImagenEntrada = new System.Windows.Forms.PictureBox();
-            this.ChartImagen = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.HistoGramImg = new AForge.Controls.Histogram();
             ((System.ComponentModel.ISupportInitialize)(this.Histograma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImagenSalida)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImagenEntrada)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChartImagen)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,9 +65,9 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.cmbFiltros.Items.AddRange(new object[] {
             "Inversión de Colores",
             "Tonos Sepia",
-            "Filtro3",
-            "Filtro4",
-            "Filtro5"});
+            "Escala de Grises",
+            "Pixelizado",
+            "Gaussiano"});
             this.cmbFiltros.Location = new System.Drawing.Point(23, 333);
             this.cmbFiltros.Name = "cmbFiltros";
             this.cmbFiltros.Size = new System.Drawing.Size(258, 24);
@@ -189,39 +183,15 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.ImagenEntrada.TabIndex = 0;
             this.ImagenEntrada.TabStop = false;
             // 
-            // ChartImagen
+            // HistoGramImg
             // 
-            this.ChartImagen.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ChartImagen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ChartImagen.BorderlineColor = System.Drawing.Color.Black;
-            this.ChartImagen.BorderSkin.BackColor = System.Drawing.Color.White;
-            chartArea1.Name = "ChartArea1";
-            this.ChartImagen.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.ChartImagen.Legends.Add(legend1);
-            this.ChartImagen.Location = new System.Drawing.Point(311, 312);
-            this.ChartImagen.Name = "ChartImagen";
-            this.ChartImagen.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.ChartArea = "ChartArea1";
-            series1.Color = System.Drawing.Color.Red;
-            series1.LabelForeColor = System.Drawing.Color.BlanchedAlmond;
-            series1.Legend = "Legend1";
-            series1.Name = "R";
-            series2.ChartArea = "ChartArea1";
-            series2.Color = System.Drawing.Color.Lime;
-            series2.Legend = "Legend1";
-            series2.Name = "G";
-            series3.ChartArea = "ChartArea1";
-            series3.Color = System.Drawing.Color.Blue;
-            series3.Legend = "Legend1";
-            series3.Name = "B";
-            this.ChartImagen.Series.Add(series1);
-            this.ChartImagen.Series.Add(series2);
-            this.ChartImagen.Series.Add(series3);
-            this.ChartImagen.Size = new System.Drawing.Size(356, 180);
-            this.ChartImagen.TabIndex = 9;
-            this.ChartImagen.Text = "chart1";
-            this.ChartImagen.Visible = false;
+            this.HistoGramImg.Location = new System.Drawing.Point(409, 313);
+            this.HistoGramImg.Name = "HistoGramImg";
+            this.HistoGramImg.Size = new System.Drawing.Size(236, 179);
+            this.HistoGramImg.TabIndex = 9;
+            this.HistoGramImg.Text = "histogram1";
+            this.HistoGramImg.Values = null;
+            this.HistoGramImg.Visible = false;
             // 
             // Imagenes
             // 
@@ -229,7 +199,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(679, 506);
-            this.Controls.Add(this.ChartImagen);
+            this.Controls.Add(this.HistoGramImg);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Histograma);
             this.Controls.Add(this.btnAplicarFiltro);
@@ -244,7 +214,6 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             ((System.ComponentModel.ISupportInitialize)(this.Histograma)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImagenSalida)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImagenEntrada)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChartImagen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,6 +230,6 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private System.Windows.Forms.Button btnAplicarFiltro;
         private System.Windows.Forms.PictureBox Histograma;
         private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.DataVisualization.Charting.Chart ChartImagen;
+        private AForge.Controls.Histogram HistoGramImg;
     }
 }
