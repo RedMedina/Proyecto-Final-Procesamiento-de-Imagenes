@@ -36,6 +36,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             if (videoDevices.Count == 0)
             {
                 MessageBox.Show("No se encontraron dispositivos de video.");
+                return;
             }
             foreach (FilterInfo device in videoDevices)
             {

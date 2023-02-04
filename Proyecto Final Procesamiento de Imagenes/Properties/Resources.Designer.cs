@@ -253,6 +253,26 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_start_25 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-start-25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_stop_circled_25 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-stop-circled-25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_upload_25 {
             get {
                 object obj = ResourceManager.GetObject("icons8-upload-25", resourceCulture);
