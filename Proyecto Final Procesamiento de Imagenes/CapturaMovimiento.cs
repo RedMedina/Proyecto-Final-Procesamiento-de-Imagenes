@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
+using AForge.Imaging.Filters;
+using AForge.Imaging;
+using AForge.Vision.Motion;
 
 namespace Proyecto_Final_Procesamiento_de_Imagenes
 {
@@ -17,6 +20,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoSource;
         private ComboBox cmbVideoDevices;
+      
         public CapturaMovimiento()
         {
             InitializeComponent();
@@ -60,6 +64,18 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         {
             // Actualiza el PictureBox con el nuevo frame
             CameraSalida.Image = (System.Drawing.Bitmap)eventArgs.Frame.Clone();
+            Bitmap image = (Bitmap)eventArgs.Frame.Clone();
+            image = new Grayscale(0.2125, 0.7154, 0.0721).Apply(image);
+            image = new BradleyLocalThresholding().Apply(image);
+            BlobCounter blobCounter = new BlobCounter();
+            blobCounter.MinWidth = 20;
+            blobCounter.MinHeight = 20;
+            blobCounter.FilterBlobs = true;
+            blobCounter.ObjectsOrder = ObjectsOrder.Size;
+            blobCounter.ProcessImage(image);
+            Rectangle[] rects = blobCounter.GetObjectsRectangles();
+            int faceCount = rects.Length;
+            //Console.WriteLine("Se han detectado " + faceCount + " rostros");
         }
 
         private void btnCloseCam_Click(object sender, EventArgs e)
