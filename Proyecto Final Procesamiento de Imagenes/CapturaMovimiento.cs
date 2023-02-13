@@ -12,6 +12,12 @@ using AForge.Video.DirectShow;
 using AForge.Imaging.Filters;
 using AForge.Imaging;
 using AForge.Vision.Motion;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+using Emgu.CV.UI;
+using Emgu.CV.Cuda;
+using System.Drawing.Imaging;
 
 namespace Proyecto_Final_Procesamiento_de_Imagenes
 {
@@ -20,7 +26,9 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoSource;
         private ComboBox cmbVideoDevices;
-      
+        // Create a list to store the rectangles for each frame
+        private List<Rectangle> faceRectangles = new List<Rectangle>();
+
         public CapturaMovimiento()
         {
             InitializeComponent();
@@ -35,47 +43,86 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
 
         private void btnCameraActiva_Click(object sender, EventArgs e)
         {
-            // Obtiene la lista de dispositivos de video disponibles
-            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            if (videoDevices.Count == 0)
-            {
-                MessageBox.Show("No se encontraron dispositivos de video.");
-                return;
-            }
-            foreach (FilterInfo device in videoDevices)
-            {
-                cmbVideoDevices.Items.Add(device.Name);
-            }
-            cmbVideoDevices.SelectedIndex = 0;
+            
+              // Obtiene la lista de dispositivos de video disponibles
+              videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+              if (videoDevices.Count == 0)
+              {
+                  MessageBox.Show("No se encontraron dispositivos de video.");
+                  return;
+              }
+              foreach (FilterInfo device in videoDevices)
+              {
+                  cmbVideoDevices.Items.Add(device.Name);
+              }
+              cmbVideoDevices.SelectedIndex = 0;
 
-            // Crea una nueva instancia de VideoCaptureDevice utilizando el dispositivo de video seleccionado
-            videoSource = new VideoCaptureDevice(videoDevices[cmbVideoDevices.SelectedIndex].MonikerString);
+              // Crea una nueva instancia de VideoCaptureDevice utilizando el dispositivo de video seleccionado
+              videoSource = new VideoCaptureDevice(videoDevices[cmbVideoDevices.SelectedIndex].MonikerString);
 
-            // Asigna un controlador de eventos para el evento NewFrame
-            videoSource.NewFrame += new NewFrameEventHandler(video_NewFrame);
+              // Asigna un controlador de eventos para el evento NewFrame
+              videoSource.NewFrame += new NewFrameEventHandler(video_NewFrame);
 
-            // Inicia la transmisión de video
-            videoSource.Start();
-
+              // Inicia la transmisión de video
+              videoSource.Start();
             btnCloseCam.Visible = true;
         }
-
+        static readonly CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_frontalface_default.xml");
         private void video_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+            //Bitmap bitmap = new Bitmap(CameraSalida.Image.Width, CameraSalida.Image.Height, PixelFormat.Format32bppArgb);
+            Bitmap bitmap = new Bitmap((Bitmap)eventArgs.Frame.Clone());
+            Image<Bgr, byte> grayImage = bitmap.ToImage<Bgr, byte>();
+            Rectangle[] rectangles = cascadeClassifier.DetectMultiScale(grayImage, 1.2, 1);
+
+            // Add the rectangles to the list
+            faceRectangles.AddRange(rectangles);
+
+            // Keep only the rectangles from the last 10 frames
+            if (faceRectangles.Count > 1)
+            {
+                faceRectangles.RemoveRange(0, faceRectangles.Count - 1);
+            }
+
+            // Calculate the average rectangle
+            //Rectangle averageRectangle = GetAverageRectangle(faceRectangles);
+
+            foreach (Rectangle face in faceRectangles)
+            {
+                using(Graphics graphics = Graphics.FromImage(bitmap)) 
+                {
+                    using (Pen pen = new Pen(Color.Red, 1)) 
+                    {
+                        graphics.DrawRectangle(pen,face);
+                    }
+                }
+            }
             // Actualiza el PictureBox con el nuevo frame
-            CameraSalida.Image = (System.Drawing.Bitmap)eventArgs.Frame.Clone();
-            Bitmap image = (Bitmap)eventArgs.Frame.Clone();
-            image = new Grayscale(0.2125, 0.7154, 0.0721).Apply(image);
-            image = new BradleyLocalThresholding().Apply(image);
-            BlobCounter blobCounter = new BlobCounter();
-            blobCounter.MinWidth = 20;
-            blobCounter.MinHeight = 20;
-            blobCounter.FilterBlobs = true;
-            blobCounter.ObjectsOrder = ObjectsOrder.Size;
-            blobCounter.ProcessImage(image);
-            Rectangle[] rects = blobCounter.GetObjectsRectangles();
-            int faceCount = rects.Length;
-            //Console.WriteLine("Se han detectado " + faceCount + " rostros");
+            CameraSalida.Image = bitmap;
+            // Contar el número de rostros detectados
+            int faceCount = rectangles.Length;
+            Console.WriteLine("Se han detectado " + faceCount + " rostros.");
+        }
+
+        private Rectangle GetAverageRectangle(List<Rectangle> rectangles)
+        {
+            int left = 0, top = 0, right = 0, bottom = 0;
+            int count = rectangles.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                left += rectangles[i].Left;
+                top += rectangles[i].Top;
+                right += rectangles[i].Right;
+                bottom += rectangles[i].Bottom;
+            }
+
+            left /= count;
+            top /= count;
+            right /= count;
+            bottom /= count;
+
+            return new Rectangle(left, top, right - left, bottom - top);
         }
 
         private void btnCloseCam_Click(object sender, EventArgs e)
