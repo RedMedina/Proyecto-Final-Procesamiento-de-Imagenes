@@ -63,7 +63,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.CameraSalida.Location = new System.Drawing.Point(12, 12);
             this.CameraSalida.Name = "CameraSalida";
             this.CameraSalida.Size = new System.Drawing.Size(938, 570);
-            this.CameraSalida.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CameraSalida.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.CameraSalida.TabIndex = 0;
             this.CameraSalida.TabStop = false;
             // 
@@ -93,9 +93,9 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.CantRostros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
             this.CantRostros.Location = new System.Drawing.Point(662, 602);
             this.CantRostros.Name = "CantRostros";
-            this.CantRostros.Size = new System.Drawing.Size(23, 25);
+            this.CantRostros.Size = new System.Drawing.Size(27, 25);
             this.CantRostros.TabIndex = 3;
-            this.CantRostros.Text = "a";
+            this.CantRostros.Text = "...";
             this.CantRostros.Visible = false;
             // 
             // CapturaMovimiento
