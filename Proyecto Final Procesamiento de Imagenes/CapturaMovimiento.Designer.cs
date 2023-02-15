@@ -32,6 +32,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.btnCameraActiva = new System.Windows.Forms.Button();
             this.CameraSalida = new System.Windows.Forms.PictureBox();
             this.btnCloseCam = new System.Windows.Forms.Button();
+            this.CantRostros = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CameraSalida)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.CameraSalida.Location = new System.Drawing.Point(12, 12);
             this.CameraSalida.Name = "CameraSalida";
             this.CameraSalida.Size = new System.Drawing.Size(938, 570);
-            this.CameraSalida.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.CameraSalida.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CameraSalida.TabIndex = 0;
             this.CameraSalida.TabStop = false;
             // 
@@ -84,12 +85,26 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.btnCloseCam.Visible = false;
             this.btnCloseCam.Click += new System.EventHandler(this.btnCloseCam_Click);
             // 
+            // CantRostros
+            // 
+            this.CantRostros.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CantRostros.AutoSize = true;
+            this.CantRostros.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CantRostros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
+            this.CantRostros.Location = new System.Drawing.Point(662, 602);
+            this.CantRostros.Name = "CantRostros";
+            this.CantRostros.Size = new System.Drawing.Size(23, 25);
+            this.CantRostros.TabIndex = 3;
+            this.CantRostros.Text = "a";
+            this.CantRostros.Visible = false;
+            // 
             // CapturaMovimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(962, 658);
+            this.Controls.Add(this.CantRostros);
             this.Controls.Add(this.btnCloseCam);
             this.Controls.Add(this.btnCameraActiva);
             this.Controls.Add(this.CameraSalida);
@@ -97,6 +112,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.Text = "CapturaMovimiento";
             ((System.ComponentModel.ISupportInitialize)(this.CameraSalida)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -105,5 +121,6 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private System.Windows.Forms.PictureBox CameraSalida;
         private System.Windows.Forms.Button btnCameraActiva;
         private System.Windows.Forms.Button btnCloseCam;
+        private System.Windows.Forms.Label CantRostros;
     }
 }

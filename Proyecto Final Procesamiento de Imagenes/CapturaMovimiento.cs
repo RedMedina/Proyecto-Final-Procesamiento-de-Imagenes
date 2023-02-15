@@ -18,6 +18,7 @@ using Emgu.CV.Structure;
 using Emgu.CV.UI;
 using Emgu.CV.Cuda;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 namespace Proyecto_Final_Procesamiento_de_Imagenes
 {
@@ -28,6 +29,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private ComboBox cmbVideoDevices;
         // Create a list to store the rectangles for each frame
         private List<Rectangle> faceRectangles = new List<Rectangle>();
+        private bool OpenCamera = true;
 
         public CapturaMovimiento()
         {
@@ -43,34 +45,74 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
 
         private void btnCameraActiva_Click(object sender, EventArgs e)
         {
-            
-              // Obtiene la lista de dispositivos de video disponibles
-              videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-              if (videoDevices.Count == 0)
-              {
-                  MessageBox.Show("No se encontraron dispositivos de video.");
-                  return;
-              }
-              foreach (FilterInfo device in videoDevices)
-              {
-                  cmbVideoDevices.Items.Add(device.Name);
-              }
-              cmbVideoDevices.SelectedIndex = 0;
-
-              // Crea una nueva instancia de VideoCaptureDevice utilizando el dispositivo de video seleccionado
-              videoSource = new VideoCaptureDevice(videoDevices[cmbVideoDevices.SelectedIndex].MonikerString);
-
-              // Asigna un controlador de eventos para el evento NewFrame
-              videoSource.NewFrame += new NewFrameEventHandler(video_NewFrame);
-
-              // Inicia la transmisión de video
-              videoSource.Start();
             btnCloseCam.Visible = true;
+            CantRostros.Visible = true;
+            var capture = new VideoCapture(); // Abrir la cámara por defecto
+            if (!capture.IsOpened)
+            {
+                MessageBox.Show("No se encontraron dispositivos de video.");
+                return;
+            }
+
+            var faceCascade = new CascadeClassifier("haarcascade_frontalface_default.xml");
+
+            while (OpenCamera)
+            {
+                using (var frame = capture.QueryFrame().ToImage<Bgr, byte>())
+                {
+                    if (frame == null)
+                        break;
+
+                    var grayFrame = frame.Convert<Gray, byte>();
+                    var faces = faceCascade.DetectMultiScale(grayFrame, 1.1, 3, Size.Empty);
+
+                    foreach (var face in faces)
+                    {
+                        frame.Draw(face, new Bgr(Color.Red), 2);
+                    }
+
+                    //CvInvoke.Imshow("Cámara", frame);
+
+                    CameraSalida.Image = frame.ToBitmap();
+
+                    if (CvInvoke.WaitKey(1) >= 0) // Salir si se presiona una tecla
+                        break;
+
+                    int faceCount = faces.Length;
+                    Console.WriteLine("Se han detectado " + faceCount + " rostros.");
+                    CantRostros.Text = "Se han detectado " + faceCount + " rostros.";
+                }
+            }
+
+            /*
+            // Obtiene la lista de dispositivos de video disponibles
+            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            if (videoDevices.Count == 0)
+            {
+                MessageBox.Show("No se encontraron dispositivos de video.");
+                return;
+            }
+            foreach (FilterInfo device in videoDevices)
+            {
+                cmbVideoDevices.Items.Add(device.Name);
+            }
+            cmbVideoDevices.SelectedIndex = 0;
+
+            // Crea una nueva instancia de VideoCaptureDevice utilizando el dispositivo de video seleccionado
+            videoSource = new VideoCaptureDevice(videoDevices[cmbVideoDevices.SelectedIndex].MonikerString);
+
+            // Asigna un controlador de eventos para el evento NewFrame
+            videoSource.NewFrame += new NewFrameEventHandler(video_NewFrame);
+
+            // Inicia la transmisión de video
+            videoSource.Start();
+             btnCloseCam.Visible = true;
+            */
         }
+
         static readonly CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_frontalface_default.xml");
         private void video_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            //Bitmap bitmap = new Bitmap(CameraSalida.Image.Width, CameraSalida.Image.Height, PixelFormat.Format32bppArgb);
             Bitmap bitmap = new Bitmap((Bitmap)eventArgs.Frame.Clone());
             Image<Bgr, byte> grayImage = bitmap.ToImage<Bgr, byte>();
             Rectangle[] rectangles = cascadeClassifier.DetectMultiScale(grayImage, 1.2, 1);
@@ -127,14 +169,17 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
 
         private void btnCloseCam_Click(object sender, EventArgs e)
         {
+            /*
             // Detiene la transmisión de video
             videoSource.SignalToStop();
-
             // Libera los recursos
             videoSource.WaitForStop();
             videoSource = null;
+            */
+            OpenCamera = false;
             CameraSalida.Image = null;
             btnCloseCam.Visible = false;
+            CantRostros.Visible = false;
         }
     }
 }
