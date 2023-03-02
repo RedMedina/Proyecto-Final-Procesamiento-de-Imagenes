@@ -83,7 +83,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                     CantRostros.Text = "Se han detectado " + faceCount + " rostros.";
                 }
             }
-
+            capture.Dispose();
             /*
             // Obtiene la lista de dispositivos de video disponibles
             videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);

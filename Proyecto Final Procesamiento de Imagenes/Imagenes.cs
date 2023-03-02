@@ -491,6 +491,90 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             GeneraHistograma(resultBitmap);
         }
 
+        unsafe private void OjodePez()
+        {
+            ImagenAEditar = ImagenEntrada.Image;
+            Bitmap sourceBitmap = new Bitmap(ImagenAEditar);
+
+            int inputWidth = ImagenAEditar.Width;
+            int inputHeight = ImagenAEditar.Height;
+
+            int centerX = inputWidth / 2;
+            int centerY = inputHeight / 2;
+            float Strength = 2.5f;
+
+            // Radio máximo de la imagen de entrada
+            float maxRadius = (float)Math.Sqrt(centerX * centerX + centerY * centerY);
+
+            // Factor de distorsión
+            float factor = 2.5f / Strength /*/ maxRadius*/;
+
+            // Imagen de salida
+            Bitmap outputImage = new Bitmap(inputWidth, inputHeight, sourceBitmap.PixelFormat);
+
+            // Puntero a la imagen de entrada
+            BitmapData inputData = sourceBitmap.LockBits(new Rectangle(0, 0, inputWidth, inputHeight), ImageLockMode.ReadOnly, sourceBitmap.PixelFormat);
+            byte* inputPtr = (byte*)inputData.Scan0.ToPointer();
+
+            // Puntero a la imagen de salida
+            BitmapData outputData = outputImage.LockBits(new Rectangle(0, 0, inputWidth, inputHeight), ImageLockMode.WriteOnly, sourceBitmap.PixelFormat);
+            byte* outputPtr = (byte*)outputData.Scan0.ToPointer();
+
+            VarGau.Visible = true;
+            VarGau.Maximum = inputHeight;
+            VarGau.Value = 0;
+
+            // Distorsión radial de la imagen
+            for (int y = 0; y < inputHeight; y++)
+            {
+                for (int x = 0; x < inputWidth; x++)
+                {
+                    // Posición del píxel en la imagen de salida
+                    int outputIndex = (y * outputData.Stride) + (x * 4);
+
+                    // Vector desde el centro de la imagen hasta el píxel
+                    float dx = x - centerX;
+                    float dy = y - centerY;
+
+                    // Radio del vector
+                    float radius = (float)Math.Sqrt(dx * dx + dy * dy);
+
+                    // Factor de distorsión radial
+                    float distortion = factor * radius;
+
+                    // Posición del píxel en la imagen de entrada
+                    int inputX = (int)(dx * distortion / maxRadius + centerX);
+                    int inputY = (int)(dy * distortion / maxRadius +  centerY);
+
+                    // Comprobamos que la posición del píxel de salida esté dentro de la imagen
+                    if (inputX >= 0 && inputX < inputWidth && inputY >= 0 && inputY < inputHeight)
+                    {
+                        // Posición del píxel de salida en la imagen de salida
+                        int inputIndex = (inputY * inputData.Stride) + (inputX * 4);
+
+                        // Copiamos el valor del píxel de entrada en la posición del píxel de salida
+                        outputPtr[outputIndex] = inputPtr[inputIndex];
+                        outputPtr[outputIndex + 1] = inputPtr[inputIndex + 1];
+                        outputPtr[outputIndex + 2] = inputPtr[inputIndex + 2];
+                        outputPtr[outputIndex + 3] = inputPtr[inputIndex + 3];
+                    }
+                }
+                VarGau.Value++;
+            }
+
+            // Liberamos los punteros de memoria
+            sourceBitmap.UnlockBits(inputData);
+            outputImage.UnlockBits(outputData);
+
+            VarGau.Visible = false;
+
+            ImagenAEditar = null;
+            ImagenSalida.Image = null;
+            ImagenSalida.Image = outputImage;
+
+            GeneraHistograma(outputImage);
+        }
+
         private void btnAplicarFiltro_Click(object sender, EventArgs e)
         {
             
@@ -517,6 +601,9 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                     case 4: //Gaussiano
                         string Size = Interaction.InputBox("Ingrese el tamaño de desenfoque","Tamaño de desenfoque", "5");
                         Gaussiano(Int32.Parse(Size));
+                        break;
+                    case 5: //Ojo de pez
+                        OjodePez();
                         break;
                     default:
                         MessageBox.Show("Por favor seleccione un filtro.");
