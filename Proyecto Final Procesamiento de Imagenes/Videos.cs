@@ -12,6 +12,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using FFmpeg.AutoGen;
 using Emgu.CV;
 using System.Threading.Tasks;
+using System.Media;
 
 namespace Proyecto_Final_Procesamiento_de_Imagenes
 {
@@ -126,9 +127,10 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         string VideoActual = "";
         string NombreVActual = "";
         VideoCapture videoCapture;
+        SoundPlayer reproductor;
         bool Reproduciendo = false;
         int framesTotales;
-        int framesActualNum;
+        float framesActualNum;
         Mat frameActual;
         Bitmap bmpRes;
         int FPS;
@@ -156,6 +158,13 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                 LineaT.Minimum = 0;
                 LineaT.Maximum = framesTotales - 1;
                 LineaT.Value = 0;
+                //reproductor = new SoundPlayer(openFileDialog.FileName);
+                //reproductor.Play();
+                VideoEE.playlist.items.clear();
+                VideoEE.playlist.add(@"file:///" + openFileDialog.FileName);
+                VideoEE.playlist.play();
+                VideoActual = openFileDialog.FileName;
+                NombreVActual = openFileDialog.SafeFileName;
                 PlayVideo();
             }
             
@@ -206,8 +215,8 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                     VideoF2.SizeMode = PictureBoxSizeMode.StretchImage;
                     VideoF1.Image = frameActual.ToBitmap();
                     VideoF1.SizeMode = PictureBoxSizeMode.StretchImage;
-                    LineaT.Value = framesActualNum;
-                    framesActualNum += 3;
+                    LineaT.Value = (int)framesActualNum;
+                    framesActualNum += 1.85f;
                     await Task.Delay(1000 / FPS);
                 }
             }
@@ -522,7 +531,40 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             if (videoCapture != null)
             {
                 framesActualNum = LineaT.Value;
+                //reproductor.
+                //VideoEE.playlist.
             }
+        }
+
+        private void bntPlay_Click(object sender, EventArgs e)
+        {
+            if (videoCapture != null)
+            {
+                Reproduciendo = true;
+                PlayVideo();
+                VideoEE.playlist.play();
+                //reproductor.Play();
+            }
+            else
+            {
+                MessageBox.Show("No se cargó un video", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Reproduciendo = false;
+            }
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            Reproduciendo = false;
+            //reproductor.Stop();
+            VideoEE.playlist.stop();
+        }
+
+        private void btnAgain_Click(object sender, EventArgs e)
+        {
+            framesActualNum = 0;
+            LineaT.Value = 0;
+            PlayVideo();
+            VideoEE.playlist.play();
         }
     }
 }

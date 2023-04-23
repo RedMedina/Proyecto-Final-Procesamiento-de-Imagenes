@@ -32,19 +32,22 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Videos));
             this.cmbFiltrosV = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAplicarFiltroV = new System.Windows.Forms.Button();
-            this.btnCargarVideo = new System.Windows.Forms.Button();
             this.VideoEE = new AxAXVLC.AxVLCPlugin2();
             this.VideoSS = new AxAXVLC.AxVLCPlugin2();
-            this.VideoF1 = new System.Windows.Forms.PictureBox();
-            this.VideoF2 = new System.Windows.Forms.PictureBox();
             this.VarGau = new System.Windows.Forms.ProgressBar();
             this.LineaT = new System.Windows.Forms.TrackBar();
+            this.btnAgain = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.bntPlay = new System.Windows.Forms.Button();
+            this.VideoF2 = new System.Windows.Forms.PictureBox();
+            this.VideoF1 = new System.Windows.Forms.PictureBox();
+            this.btnAplicarFiltroV = new System.Windows.Forms.Button();
+            this.btnCargarVideo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.VideoEE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoSS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoF1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoF2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LineaT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VideoF2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VideoF1)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbFiltrosV
@@ -77,6 +80,112 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.label1.Size = new System.Drawing.Size(61, 20);
             this.label1.TabIndex = 13;
             this.label1.Text = "Filtros:";
+            // 
+            // VideoEE
+            // 
+            this.VideoEE.Enabled = true;
+            this.VideoEE.Location = new System.Drawing.Point(12, -1);
+            this.VideoEE.Name = "VideoEE";
+            this.VideoEE.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("VideoEE.OcxState")));
+            this.VideoEE.Size = new System.Drawing.Size(376, 316);
+            this.VideoEE.TabIndex = 22;
+            this.VideoEE.Visible = false;
+            // 
+            // VideoSS
+            // 
+            this.VideoSS.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.VideoSS.Enabled = true;
+            this.VideoSS.Location = new System.Drawing.Point(574, -1);
+            this.VideoSS.Name = "VideoSS";
+            this.VideoSS.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("VideoSS.OcxState")));
+            this.VideoSS.Size = new System.Drawing.Size(376, 316);
+            this.VideoSS.TabIndex = 23;
+            this.VideoSS.Visible = false;
+            // 
+            // VarGau
+            // 
+            this.VarGau.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.VarGau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
+            this.VarGau.Location = new System.Drawing.Point(574, 305);
+            this.VarGau.Name = "VarGau";
+            this.VarGau.Size = new System.Drawing.Size(376, 10);
+            this.VarGau.TabIndex = 31;
+            this.VarGau.Visible = false;
+            // 
+            // LineaT
+            // 
+            this.LineaT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LineaT.Location = new System.Drawing.Point(302, 334);
+            this.LineaT.Name = "LineaT";
+            this.LineaT.Size = new System.Drawing.Size(374, 56);
+            this.LineaT.TabIndex = 32;
+            this.LineaT.Scroll += new System.EventHandler(this.LineaT_Scroll);
+            // 
+            // btnAgain
+            // 
+            this.btnAgain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.btnAgain.FlatAppearance.BorderSize = 0;
+            this.btnAgain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgain.ForeColor = System.Drawing.Color.LightGray;
+            this.btnAgain.Image = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_reset_25;
+            this.btnAgain.Location = new System.Drawing.Point(458, 210);
+            this.btnAgain.Name = "btnAgain";
+            this.btnAgain.Size = new System.Drawing.Size(60, 50);
+            this.btnAgain.TabIndex = 35;
+            this.btnAgain.UseVisualStyleBackColor = false;
+            this.btnAgain.Click += new System.EventHandler(this.btnAgain_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.btnStop.FlatAppearance.BorderSize = 0;
+            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStop.ForeColor = System.Drawing.Color.LightGray;
+            this.btnStop.Image = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_stop_circled_25;
+            this.btnStop.Location = new System.Drawing.Point(458, 154);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(60, 50);
+            this.btnStop.TabIndex = 34;
+            this.btnStop.UseVisualStyleBackColor = false;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // bntPlay
+            // 
+            this.bntPlay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.bntPlay.FlatAppearance.BorderSize = 0;
+            this.bntPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntPlay.ForeColor = System.Drawing.Color.LightGray;
+            this.bntPlay.Image = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_start_25;
+            this.bntPlay.Location = new System.Drawing.Point(458, 98);
+            this.bntPlay.Name = "bntPlay";
+            this.bntPlay.Size = new System.Drawing.Size(60, 50);
+            this.bntPlay.TabIndex = 33;
+            this.bntPlay.UseVisualStyleBackColor = false;
+            this.bntPlay.Click += new System.EventHandler(this.bntPlay_Click);
+            // 
+            // VideoF2
+            // 
+            this.VideoF2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.VideoF2.BackgroundImage = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_video_70;
+            this.VideoF2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.VideoF2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.VideoF2.Location = new System.Drawing.Point(574, -1);
+            this.VideoF2.Name = "VideoF2";
+            this.VideoF2.Size = new System.Drawing.Size(376, 316);
+            this.VideoF2.TabIndex = 30;
+            this.VideoF2.TabStop = false;
+            // 
+            // VideoF1
+            // 
+            this.VideoF1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.VideoF1.BackgroundImage = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_video_70;
+            this.VideoF1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.VideoF1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.VideoF1.Location = new System.Drawing.Point(12, -1);
+            this.VideoF1.Name = "VideoF1";
+            this.VideoF1.Size = new System.Drawing.Size(376, 316);
+            this.VideoF1.TabIndex = 29;
+            this.VideoF1.TabStop = false;
             // 
             // btnAplicarFiltroV
             // 
@@ -114,76 +223,15 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.btnCargarVideo.UseVisualStyleBackColor = false;
             this.btnCargarVideo.Click += new System.EventHandler(this.btnCargarVideo_Click);
             // 
-            // VideoEE
-            // 
-            this.VideoEE.Enabled = true;
-            this.VideoEE.Location = new System.Drawing.Point(12, -1);
-            this.VideoEE.Name = "VideoEE";
-            this.VideoEE.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("VideoEE.OcxState")));
-            this.VideoEE.Size = new System.Drawing.Size(376, 316);
-            this.VideoEE.TabIndex = 22;
-            this.VideoEE.Visible = false;
-            // 
-            // VideoSS
-            // 
-            this.VideoSS.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.VideoSS.Enabled = true;
-            this.VideoSS.Location = new System.Drawing.Point(574, -1);
-            this.VideoSS.Name = "VideoSS";
-            this.VideoSS.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("VideoSS.OcxState")));
-            this.VideoSS.Size = new System.Drawing.Size(376, 316);
-            this.VideoSS.TabIndex = 23;
-            this.VideoSS.Visible = false;
-            // 
-            // VideoF1
-            // 
-            this.VideoF1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.VideoF1.BackgroundImage = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_video_70;
-            this.VideoF1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.VideoF1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.VideoF1.Location = new System.Drawing.Point(12, -1);
-            this.VideoF1.Name = "VideoF1";
-            this.VideoF1.Size = new System.Drawing.Size(376, 316);
-            this.VideoF1.TabIndex = 29;
-            this.VideoF1.TabStop = false;
-            // 
-            // VideoF2
-            // 
-            this.VideoF2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.VideoF2.BackgroundImage = global::Proyecto_Final_Procesamiento_de_Imagenes.Properties.Resources.icons8_video_70;
-            this.VideoF2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.VideoF2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.VideoF2.Location = new System.Drawing.Point(574, -1);
-            this.VideoF2.Name = "VideoF2";
-            this.VideoF2.Size = new System.Drawing.Size(376, 316);
-            this.VideoF2.TabIndex = 30;
-            this.VideoF2.TabStop = false;
-            // 
-            // VarGau
-            // 
-            this.VarGau.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.VarGau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
-            this.VarGau.Location = new System.Drawing.Point(574, 305);
-            this.VarGau.Name = "VarGau";
-            this.VarGau.Size = new System.Drawing.Size(376, 10);
-            this.VarGau.TabIndex = 31;
-            this.VarGau.Visible = false;
-            // 
-            // LineaT
-            // 
-            this.LineaT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LineaT.Location = new System.Drawing.Point(302, 334);
-            this.LineaT.Name = "LineaT";
-            this.LineaT.Size = new System.Drawing.Size(374, 56);
-            this.LineaT.TabIndex = 32;
-            this.LineaT.Scroll += new System.EventHandler(this.LineaT_Scroll);
-            // 
             // Videos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(962, 658);
+            this.Controls.Add(this.btnAgain);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.bntPlay);
             this.Controls.Add(this.LineaT);
             this.Controls.Add(this.VarGau);
             this.Controls.Add(this.VideoF2);
@@ -198,9 +246,9 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.Text = "Videos";
             ((System.ComponentModel.ISupportInitialize)(this.VideoEE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoSS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoF1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoF2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LineaT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VideoF2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VideoF1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,5 +265,8 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private System.Windows.Forms.PictureBox VideoF2;
         private System.Windows.Forms.ProgressBar VarGau;
         private System.Windows.Forms.TrackBar LineaT;
+        private System.Windows.Forms.Button bntPlay;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnAgain;
     }
 }

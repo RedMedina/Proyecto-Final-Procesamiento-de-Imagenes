@@ -243,6 +243,16 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_reset_25 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-reset-25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_restore_window_20 {
             get {
                 object obj = ResourceManager.GetObject("icons8-restore-window-20", resourceCulture);

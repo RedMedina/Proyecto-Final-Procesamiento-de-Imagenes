@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("Proyecto Final Procesamiento de Imagenes")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Scarlet Editor")]
+[assembly: AssemblyDescription("Profesional Video and Image Editor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Proyecto Final Procesamiento de Imagenes")]
+[assembly: AssemblyCompany("Scarlet")]
+[assembly: AssemblyProduct("Scarlet Editor")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Scarlet Editor")]
 [assembly: AssemblyCulture("")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 
