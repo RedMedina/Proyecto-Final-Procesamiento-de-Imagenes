@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.IO;
 using System.Drawing.Imaging;
 using Microsoft.VisualBasic;
@@ -160,9 +159,9 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                 LineaT.Value = 0;
                 //reproductor = new SoundPlayer(openFileDialog.FileName);
                 //reproductor.Play();
-                VideoEE.playlist.items.clear();
-                VideoEE.playlist.add(@"file:///" + openFileDialog.FileName);
-                VideoEE.playlist.play();
+                //VideoEE.playlist.items.clear();
+                //VideoEE.playlist.add(@"file:///" + openFileDialog.FileName);
+                //VideoEE.playlist.play();
                 VideoActual = openFileDialog.FileName;
                 NombreVActual = openFileDialog.SafeFileName;
                 PlayVideo();
@@ -216,7 +215,14 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                     VideoF1.Image = frameActual.ToBitmap();
                     VideoF1.SizeMode = PictureBoxSizeMode.StretchImage;
                     LineaT.Value = (int)framesActualNum;
-                    framesActualNum += 1.85f;
+                    if (filtro >= 0 && filtro <=4)
+                    {
+                        framesActualNum += 2.5f;
+                    }
+                    else 
+                    {
+                        framesActualNum += 1.95f;
+                    }
                     await Task.Delay(1000 / FPS);
                 }
             }
@@ -542,7 +548,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             {
                 Reproduciendo = true;
                 PlayVideo();
-                VideoEE.playlist.play();
+                //VideoEE.playlist.play();
                 //reproductor.Play();
             }
             else
@@ -556,7 +562,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         {
             Reproduciendo = false;
             //reproductor.Stop();
-            VideoEE.playlist.stop();
+            //VideoEE.playlist.pause();
         }
 
         private void btnAgain_Click(object sender, EventArgs e)
@@ -564,7 +570,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             framesActualNum = 0;
             LineaT.Value = 0;
             PlayVideo();
-            VideoEE.playlist.play();
+            //VideoEE.playlist.play();
         }
     }
 }

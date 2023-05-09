@@ -29,11 +29,8 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Videos));
             this.cmbFiltrosV = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.VideoEE = new AxAXVLC.AxVLCPlugin2();
-            this.VideoSS = new AxAXVLC.AxVLCPlugin2();
             this.VarGau = new System.Windows.Forms.ProgressBar();
             this.LineaT = new System.Windows.Forms.TrackBar();
             this.btnAgain = new System.Windows.Forms.Button();
@@ -43,8 +40,6 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.VideoF1 = new System.Windows.Forms.PictureBox();
             this.btnAplicarFiltroV = new System.Windows.Forms.Button();
             this.btnCargarVideo = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoEE)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoSS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LineaT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoF2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoF1)).BeginInit();
@@ -80,27 +75,6 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.label1.Size = new System.Drawing.Size(61, 20);
             this.label1.TabIndex = 13;
             this.label1.Text = "Filtros:";
-            // 
-            // VideoEE
-            // 
-            this.VideoEE.Enabled = true;
-            this.VideoEE.Location = new System.Drawing.Point(12, -1);
-            this.VideoEE.Name = "VideoEE";
-            this.VideoEE.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("VideoEE.OcxState")));
-            this.VideoEE.Size = new System.Drawing.Size(376, 316);
-            this.VideoEE.TabIndex = 22;
-            this.VideoEE.Visible = false;
-            // 
-            // VideoSS
-            // 
-            this.VideoSS.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.VideoSS.Enabled = true;
-            this.VideoSS.Location = new System.Drawing.Point(574, -1);
-            this.VideoSS.Name = "VideoSS";
-            this.VideoSS.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("VideoSS.OcxState")));
-            this.VideoSS.Size = new System.Drawing.Size(376, 316);
-            this.VideoSS.TabIndex = 23;
-            this.VideoSS.Visible = false;
             // 
             // VarGau
             // 
@@ -234,18 +208,14 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             this.Controls.Add(this.bntPlay);
             this.Controls.Add(this.LineaT);
             this.Controls.Add(this.VarGau);
-            this.Controls.Add(this.VideoF2);
-            this.Controls.Add(this.VideoF1);
-            this.Controls.Add(this.VideoSS);
-            this.Controls.Add(this.VideoEE);
             this.Controls.Add(this.btnAplicarFiltroV);
             this.Controls.Add(this.cmbFiltrosV);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCargarVideo);
+            this.Controls.Add(this.VideoF1);
+            this.Controls.Add(this.VideoF2);
             this.Name = "Videos";
             this.Text = "Videos";
-            ((System.ComponentModel.ISupportInitialize)(this.VideoEE)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VideoSS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LineaT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoF2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VideoF1)).EndInit();
@@ -259,8 +229,6 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private System.Windows.Forms.ComboBox cmbFiltrosV;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCargarVideo;
-        private AxAXVLC.AxVLCPlugin2 VideoEE;
-        private AxAXVLC.AxVLCPlugin2 VideoSS;
         private System.Windows.Forms.PictureBox VideoF1;
         private System.Windows.Forms.PictureBox VideoF2;
         private System.Windows.Forms.ProgressBar VarGau;
