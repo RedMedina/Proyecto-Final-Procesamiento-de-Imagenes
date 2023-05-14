@@ -236,7 +236,7 @@ cc::::::ccccc:::;,,,',,;:::::cclc:oXWNNNX00000XXNWWWNWWWWKkKWNWNNNWWWWWWWWWWWWWW
 
         private void pictureClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Application.Exit();  
         }
 
         private bool Maximizado = false;

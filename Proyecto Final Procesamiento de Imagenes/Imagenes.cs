@@ -159,6 +159,7 @@ llllllllllllllllllllllllllll:,:lllllllllllllllllllllllllllllllllllllllllllllllll
         private void btnCargarImagen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Archivos de imagen (*.png, *.jpg, *.bmp, *.jpeg, ...)|*.png;*.jpg;*.bmp;*.jpeg;...";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK) 
             {
@@ -730,7 +731,14 @@ llllllllllllllllllllllllllll:,:lllllllllllllllllllllllllllllllllllllllllllllllll
                         break;
                     case 4: //Gaussiano
                         string Size = Interaction.InputBox("Ingrese el tamaño de desenfoque","Tamaño de desenfoque", "5");
-                        Gaussiano(Int32.Parse(Size));
+                        if (int.TryParse(Size, out int intValue)) 
+                        {
+                            Gaussiano(Int32.Parse(Size));
+                        }
+                        else 
+                        {
+                            MessageBox.Show("Por favor coloque un dato numerico válido.");
+                        }
                         break;
                     case 5: //Ojo de pez
                         OjodePez();

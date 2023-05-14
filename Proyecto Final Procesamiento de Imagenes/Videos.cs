@@ -128,6 +128,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         VideoCapture videoCapture;
         SoundPlayer reproductor;
         bool Reproduciendo = false;
+        bool Rep2 = false;
         int framesTotales;
         float framesActualNum;
         Mat frameActual;
@@ -144,7 +145,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private void btnCargarVideo_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Archivos de video (*.mp4, *.mp3, *.avi, *.mkv, ...)|*.mp4;*.mp3;*.avi;*.mkv;...";
+            openFileDialog.Filter = "Archivos de video (*.mp4, *.avi, *.mkv, ...)|*.mp4;*.avi;*.mkv;...";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -173,6 +174,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         {
             if (videoCapture == null)
             {
+                MessageBox.Show("Ingrese un vídeo correctamente.");
                 return;
             }
 
@@ -547,7 +549,11 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             if (videoCapture != null)
             {
                 Reproduciendo = true;
-                PlayVideo();
+                if (!Rep2) 
+                {
+                    PlayVideo();
+                }
+                Rep2 = true;
                 //VideoEE.playlist.play();
                 //reproductor.Play();
             }
@@ -561,15 +567,21 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private void btnStop_Click(object sender, EventArgs e)
         {
             Reproduciendo = false;
+            Rep2 = false;
             //reproductor.Stop();
             //VideoEE.playlist.pause();
         }
 
         private void btnAgain_Click(object sender, EventArgs e)
         {
-            framesActualNum = 0;
-            LineaT.Value = 0;
-            PlayVideo();
+            if (LineaT.Value >= LineaT.Maximum-1 || (!Reproduciendo && !Rep2)) 
+            {
+                Reproduciendo = true;
+                framesActualNum = 0;
+                LineaT.Value = 0;
+                PlayVideo();
+                Rep2 = true;
+            }
             //VideoEE.playlist.play();
         }
     }

@@ -105,14 +105,17 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
 
         private void btnCameraActiva_Click(object sender, EventArgs e)
         {
-            btnCloseCam.Visible = true;
-            CantRostros.Visible = true;
+           
             var capture = new VideoCapture(); // Abrir la cámara por defecto
             if (!capture.IsOpened)
             {
                 MessageBox.Show("No se encontraron dispositivos de video.");
                 return;
             }
+
+            btnCloseCam.Visible = true;
+            CantRostros.Visible = true;
+            OpenCamera = true;
 
             var faceCascade = new CascadeClassifier("haarcascade_frontalface_default.xml");
 
@@ -227,7 +230,7 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             return new Rectangle(left, top, right - left, bottom - top);
         }
 
-        private void btnCloseCam_Click(object sender, EventArgs e)
+        public void btnCloseCam_Click(object sender, EventArgs e)
         {
             /*
             // Detiene la transmisión de video
