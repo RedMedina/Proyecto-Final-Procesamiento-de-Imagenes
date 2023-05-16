@@ -91,6 +91,21 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
         private List<Rectangle> faceRectangles = new List<Rectangle>();
         private bool OpenCamera = true;
 
+        public enum CustomColor
+        {
+            Red,
+            Blue,
+            Green,
+            Yellow,
+            Acua,
+            Azure,
+            Coral,
+            Fuschia,
+            Indigo
+        }
+
+        public CustomColor colorSeleccionado;
+
         public CapturaMovimiento()
         {
             InitializeComponent();
@@ -129,9 +144,11 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
                     var grayFrame = frame.Convert<Gray, byte>();
                     var faces = faceCascade.DetectMultiScale(grayFrame, 1.1, 3, Size.Empty);
 
+                    int indice = 0;
                     foreach (var face in faces)
                     {
-                        frame.Draw(face, new Bgr(Color.Red), 2);
+                        frame.Draw(face, GetBgrColor(colorSeleccionado, indice), 2);
+                        indice++;
                     }
 
                     //CvInvoke.Imshow("Cámara", frame);
@@ -228,6 +245,33 @@ namespace Proyecto_Final_Procesamiento_de_Imagenes
             bottom /= count;
 
             return new Rectangle(left, top, right - left, bottom - top);
+        }
+
+        private Bgr GetBgrColor(CustomColor color, int index)
+        {
+            switch (index)
+            {
+                case (int)CustomColor.Red:
+                    return new Bgr(Color.Red);
+                case (int)CustomColor.Blue:
+                    return new Bgr(Color.Blue);
+                case (int)CustomColor.Green:
+                    return new Bgr(Color.Green);
+                case (int)CustomColor.Yellow:
+                    return new Bgr(Color.Yellow);
+                case (int)CustomColor.Acua:
+                    return new Bgr(Color.Aqua);
+                case (int)CustomColor.Azure:
+                    return new Bgr(Color.Azure);
+                case (int)CustomColor.Coral:
+                    return new Bgr(Color.Coral);
+                case (int)CustomColor.Fuschia:
+                    return new Bgr(Color.Fuchsia);
+                case (int)CustomColor.Indigo:
+                    return new Bgr(Color.Indigo);
+                default:
+                    return new Bgr(Color.Black);
+            }
         }
 
         public void btnCloseCam_Click(object sender, EventArgs e)
